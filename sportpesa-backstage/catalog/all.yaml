@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: sportpesa-catalog
+  description: SportPesa master catalog location
+spec:
+  targets:
+    - ./org.yaml
+    - ./systems.yaml
+    - ./services.yaml
+    - ./apis.yaml

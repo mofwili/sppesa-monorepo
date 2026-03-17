@@ -1,0 +1,9 @@
+site_name: odds-engine
+nav:
+  - Overview: index.md
+  - Architecture: architecture.md
+  - API Reference: api.md
+  - Runbook: runbook.md
+  - On-Call Guide: oncall.md
+plugins:
+  - techdocs-core

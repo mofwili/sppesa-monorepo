@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  description: ${{ values.description }}
+  annotations:
+    github.com/project-slug: sportpesa/${{ values.name }}
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: ${{ values.name }}
+  tags: [${{ values.language }}, ${{ values.domain }}]
+spec:
+  type: service
+  lifecycle: ${{ values.lifecycle }}
+  owner: group:default/${{ values.owner }}
+  system: ${{ values.domain }}-system

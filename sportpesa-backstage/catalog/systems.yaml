@@ -1,0 +1,75 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: betting-system
+  description: Core sports betting platform including odds, risk and bonus management
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: group:default/betting-team
+  domain: betting
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: casino-system
+  description: Casino games platform including jackpot, RNG and game sessions
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: group:default/casino-team
+  domain: casino
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: payments-system
+  description: Payment processing, wallet management, KYC and fraud detection
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: group:default/payments-team
+  domain: payments
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: platform-system
+  description: Shared platform services including auth, API gateway and messaging
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: group:default/platform-devops-team
+  domain: platform
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: betting
+  description: Sports betting domain
+spec:
+  owner: group:default/betting-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: casino
+  description: Casino and gaming domain
+spec:
+  owner: group:default/casino-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: payments
+  description: Payments and financial domain
+spec:
+  owner: group:default/payments-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: platform
+  description: Platform and infrastructure domain
+spec:
+  owner: group:default/platform-devops-team

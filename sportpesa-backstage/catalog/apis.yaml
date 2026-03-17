@@ -1,0 +1,275 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: odds-engine-api
+  description: REST API for odds retrieval, market management and bet placement
+  tags: [rest, betting, core]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/betting-team
+  system: betting-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Odds Engine API
+      version: 1.0.0
+    paths:
+      /odds/{marketId}:
+        get:
+          summary: Get odds for a market
+          parameters:
+            - name: marketId
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            '200':
+              description: Odds data
+      /markets:
+        get:
+          summary: List all active markets
+          responses:
+            '200':
+              description: List of markets
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: wallet-service-api
+  description: REST API for wallet operations including deposits and withdrawals
+  tags: [rest, payments, core]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/payments-team
+  system: payments-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Wallet Service API
+      version: 1.0.0
+    paths:
+      /wallet/{userId}/balance:
+        get:
+          summary: Get player wallet balance
+          parameters:
+            - name: userId
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            '200':
+              description: Wallet balance
+      /wallet/{userId}/deposit:
+        post:
+          summary: Deposit funds
+          responses:
+            '200':
+              description: Deposit confirmed
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payment-gateway-api
+  description: REST API for payment processing via M-Pesa, cards and mobile money
+  tags: [rest, payments, mpesa]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/payments-team
+  system: payments-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Payment Gateway API
+      version: 1.0.0
+    paths:
+      /payments/initiate:
+        post:
+          summary: Initiate a payment
+          responses:
+            '200':
+              description: Payment initiated
+      /payments/{transactionId}/status:
+        get:
+          summary: Check payment status
+          responses:
+            '200':
+              description: Payment status
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: kyc-service-api
+  description: REST API for KYC identity verification and compliance checks
+  tags: [rest, payments, compliance]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/payments-team
+  system: payments-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: KYC Service API
+      version: 1.0.0
+    paths:
+      /kyc/{userId}/verify:
+        post:
+          summary: Submit KYC verification
+          responses:
+            '200':
+              description: Verification submitted
+      /kyc/{userId}/status:
+        get:
+          summary: Get KYC status
+          responses:
+            '200':
+              description: KYC status
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: casino-games-api
+  description: REST API for casino game sessions, history and player stats
+  tags: [rest, casino, games]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/casino-team
+  system: casino-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Casino Games API
+      version: 1.0.0
+    paths:
+      /games:
+        get:
+          summary: List available games
+          responses:
+            '200':
+              description: Game list
+      /games/{gameId}/session:
+        post:
+          summary: Start a game session
+          responses:
+            '200':
+              description: Session started
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: jackpot-engine-api
+  description: REST API for jackpot pool values and winner management
+  tags: [rest, casino, jackpot]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/casino-team
+  system: casino-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Jackpot Engine API
+      version: 1.0.0
+    paths:
+      /jackpots:
+        get:
+          summary: List all active jackpots
+          responses:
+            '200':
+              description: Jackpot list
+      /jackpots/{jackpotId}/value:
+        get:
+          summary: Get current jackpot value
+          responses:
+            '200':
+              description: Current value
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: user-auth-api
+  description: REST API for authentication, token issuance and session management
+  tags: [rest, platform, auth]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/platform-devops-team
+  system: platform-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: User Auth API
+      version: 1.0.0
+    paths:
+      /auth/login:
+        post:
+          summary: Authenticate user
+          responses:
+            '200':
+              description: JWT token issued
+      /auth/refresh:
+        post:
+          summary: Refresh access token
+          responses:
+            '200':
+              description: New token issued
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: risk-management-api
+  description: REST API for risk assessment and liability exposure queries
+  tags: [rest, betting, risk]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/betting-team
+  system: betting-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Risk Management API
+      version: 1.0.0
+    paths:
+      /risk/assess:
+        post:
+          summary: Assess bet risk
+          responses:
+            '200':
+              description: Risk assessment result
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: bonus-engine-api
+  description: REST API for bonus eligibility, activation and history
+  tags: [rest, betting, casino, promotions]
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/betting-team
+  system: betting-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Bonus Engine API
+      version: 1.0.0
+    paths:
+      /bonuses/{userId}/eligible:
+        get:
+          summary: Get eligible bonuses for player
+          responses:
+            '200':
+              description: Eligible bonuses
+      /bonuses/{userId}/activate:
+        post:
+          summary: Activate a bonus
+          responses:
+            '200':
+              description: Bonus activated

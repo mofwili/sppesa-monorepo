@@ -1,0 +1,92 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: sportpesa-microservice-template
+  title: SportPesa Microservice Template
+  description: Creates a new production-ready microservice with TechDocs, catalog entry and Kubernetes manifests
+  tags: [java, nodejs, python, microservice, sportpesa]
+spec:
+  owner: group:default/platform-devops-team
+  type: service
+  parameters:
+    - title: Service details
+      required: [name, description, owner, domain, language]
+      properties:
+        name:
+          title: Service name
+          type: string
+          description: Lowercase hyphenated name e.g. my-new-service
+          pattern: ^[a-z][a-z0-9-]*$
+        description:
+          title: Description
+          type: string
+        owner:
+          title: Owning team
+          type: string
+          enum: [betting-team, casino-team, payments-team, platform-devops-team, mobile-team, data-analytics-team]
+        domain:
+          title: Business domain
+          type: string
+          enum: [betting, casino, payments, platform]
+        language:
+          title: Language
+          type: string
+          enum: [java, nodejs, python]
+        lifecycle:
+          title: Lifecycle
+          type: string
+          enum: [experimental, development, production]
+          default: development
+    - title: Infrastructure
+      properties:
+        database:
+          title: Database
+          type: string
+          enum: [none, mysql, mongodb]
+          default: none
+        messaging:
+          title: Messaging
+          type: string
+          enum: [none, kafka, rabbitmq]
+          default: none
+        namespace:
+          title: Kubernetes namespace
+          type: string
+          default: platform
+  steps:
+    - id: fetch
+      name: Fetch template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          domain: ${{ parameters.domain }}
+          language: ${{ parameters.language }}
+          lifecycle: ${{ parameters.lifecycle }}
+          database: ${{ parameters.database }}
+          messaging: ${{ parameters.messaging }}
+          namespace: ${{ parameters.namespace }}
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: [github.com]
+        description: ${{ parameters.description }}
+        repoUrl: github.com?repo=${{ parameters.name }}&owner=mofwili
+        defaultBranch: main
+    - id: register
+      name: Register in catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

@@ -1,0 +1,183 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: betting-team
+  description: Owns odds engine, risk management and bonus engine
+spec:
+  type: team
+  profile:
+    displayName: Betting Team
+    email: betting@sportpesa.com
+  children: []
+  members: [betting-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: casino-team
+  description: Owns casino games, jackpot and RNG services
+spec:
+  type: team
+  profile:
+    displayName: Casino Team
+    email: casino@sportpesa.com
+  children: []
+  members: [casino-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: payments-team
+  description: Owns wallet, payment gateway, KYC and fraud detection
+spec:
+  type: team
+  profile:
+    displayName: Payments Team
+    email: payments@sportpesa.com
+  children: []
+  members: [payments-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-devops-team
+  description: Owns platform infrastructure, API gateway, auth and messaging
+spec:
+  type: team
+  profile:
+    displayName: Platform/DevOps Team
+    email: platform@sportpesa.com
+  children: []
+  members: [platform-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: mobile-team
+  description: Owns iOS and Android mobile applications
+spec:
+  type: team
+  profile:
+    displayName: Mobile Team
+    email: mobile@sportpesa.com
+  children: []
+  members: [mobile-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: data-analytics-team
+  description: Owns reporting, analytics and data pipelines
+spec:
+  type: team
+  profile:
+    displayName: Data/Analytics Team
+    email: data@sportpesa.com
+  children: []
+  members: [data-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: qa-team
+  description: Quality assurance across all domains
+spec:
+  type: team
+  profile:
+    displayName: QA Team
+    email: qa@sportpesa.com
+  children: []
+  members: [qa-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: service-delivery-team
+  description: Service delivery and incident management
+spec:
+  type: team
+  profile:
+    displayName: Service Delivery Team
+    email: servicedelivery@sportpesa.com
+  children: []
+  members: [sd-lead]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: betting-lead
+spec:
+  profile:
+    displayName: Betting Lead
+    email: betting-lead@sportpesa.com
+  memberOf: [betting-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: casino-lead
+spec:
+  profile:
+    displayName: Casino Lead
+    email: casino-lead@sportpesa.com
+  memberOf: [casino-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: payments-lead
+spec:
+  profile:
+    displayName: Payments Lead
+    email: payments-lead@sportpesa.com
+  memberOf: [payments-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: platform-lead
+spec:
+  profile:
+    displayName: Platform Lead
+    email: platform-lead@sportpesa.com
+  memberOf: [platform-devops-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: mobile-lead
+spec:
+  profile:
+    displayName: Mobile Lead
+    email: mobile-lead@sportpesa.com
+  memberOf: [mobile-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: data-lead
+spec:
+  profile:
+    displayName: Data Lead
+    email: data-lead@sportpesa.com
+  memberOf: [data-analytics-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: qa-lead
+spec:
+  profile:
+    displayName: QA Lead
+    email: qa-lead@sportpesa.com
+  memberOf: [qa-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sd-lead
+spec:
+  profile:
+    displayName: Service Delivery Lead
+    email: sd-lead@sportpesa.com
+  memberOf: [service-delivery-team]

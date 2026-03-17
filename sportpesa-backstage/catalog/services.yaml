@@ -1,0 +1,315 @@
+# ─── BETTING DOMAIN ───────────────────────────────────────────────────────────
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: odds-engine
+  description: Real-time odds calculation and market management engine
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/odds-engine
+    backstage.io/kubernetes-id: odds-engine
+  tags: [java, kafka, hazelcast, betting, core]
+  links:
+    - url: https://grafana.sportpesa.com/odds-engine
+      title: Grafana dashboard
+      icon: dashboard
+    - url: https://runbook.sportpesa.com/odds-engine
+      title: Runbook
+      icon: docs
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/betting-team
+  system: betting-system
+  dependsOn:
+    - component:default/user-auth
+    - component:default/risk-management
+    - resource:default/kafka-cluster
+    - resource:default/hazelcast-cluster
+  providesApis:
+    - odds-engine-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: risk-management
+  description: Real-time risk assessment and liability management for betting markets
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/risk-management
+    backstage.io/kubernetes-id: risk-management
+  tags: [python, kafka, mongodb, betting, risk]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/betting-team
+  system: betting-system
+  dependsOn:
+    - resource:default/kafka-cluster
+    - resource:default/mongodb
+  providesApis:
+    - risk-management-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: bonus-engine
+  description: Bonus and promotions management for betting and casino players
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/bonus-engine
+    backstage.io/kubernetes-id: bonus-engine
+  tags: [nodejs, mysql, rabbitmq, betting, casino]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/betting-team
+  system: betting-system
+  dependsOn:
+    - component:default/wallet-service
+    - resource:default/mysql-db
+    - resource:default/rabbitmq-cluster
+  providesApis:
+    - bonus-engine-api
+
+# ─── CASINO DOMAIN ────────────────────────────────────────────────────────────
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: casino-games
+  description: Casino games platform managing game lifecycle and player sessions
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/casino-games
+    backstage.io/kubernetes-id: casino-games
+  tags: [java, mongodb, hazelcast, casino, core]
+  links:
+    - url: https://grafana.sportpesa.com/casino-games
+      title: Grafana dashboard
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/casino-team
+  system: casino-system
+  dependsOn:
+    - component:default/user-auth
+    - component:default/jackpot-engine
+    - component:default/wallet-service
+    - resource:default/mongodb
+    - resource:default/hazelcast-cluster
+  providesApis:
+    - casino-games-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: jackpot-engine
+  description: Progressive jackpot management with real-time pooling across casino games
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/jackpot-engine
+    backstage.io/kubernetes-id: jackpot-engine
+  tags: [java, hazelcast, kafka, casino, jackpot]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/casino-team
+  system: casino-system
+  dependsOn:
+    - resource:default/hazelcast-cluster
+    - resource:default/kafka-cluster
+  providesApis:
+    - jackpot-engine-api
+
+# ─── PAYMENTS DOMAIN ──────────────────────────────────────────────────────────
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: wallet-service
+  description: Player wallet management including deposits, withdrawals and balances
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/wallet-service
+    backstage.io/kubernetes-id: wallet-service
+  tags: [java, mysql, rabbitmq, payments, core]
+  links:
+    - url: https://grafana.sportpesa.com/wallet-service
+      title: Grafana dashboard
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/payments-team
+  system: payments-system
+  dependsOn:
+    - component:default/payment-gateway
+    - component:default/kyc-service
+    - resource:default/mysql-db
+    - resource:default/rabbitmq-cluster
+  providesApis:
+    - wallet-service-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payment-gateway
+  description: Payment processing gateway integrating M-Pesa, cards and mobile money
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/payment-gateway
+    backstage.io/kubernetes-id: payment-gateway
+  tags: [nodejs, mysql, payments, mpesa, gateway]
+  links:
+    - url: https://grafana.sportpesa.com/payment-gateway
+      title: Grafana dashboard
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/payments-team
+  system: payments-system
+  dependsOn:
+    - component:default/kyc-service
+    - resource:default/mysql-db
+  providesApis:
+    - payment-gateway-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: kyc-service
+  description: Know Your Customer identity verification and compliance service
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/kyc-service
+    backstage.io/kubernetes-id: kyc-service
+  tags: [python, mongodb, payments, compliance, kyc]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/payments-team
+  system: payments-system
+  dependsOn:
+    - resource:default/mongodb
+  providesApis:
+    - kyc-service-api
+
+# ─── PLATFORM DOMAIN ──────────────────────────────────────────────────────────
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: user-auth
+  description: Authentication and authorisation service using JWT and OAuth2
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/user-auth
+    backstage.io/kubernetes-id: user-auth
+  tags: [nodejs, mysql, platform, auth, jwt]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/platform-devops-team
+  system: platform-system
+  dependsOn:
+    - resource:default/mysql-db
+  providesApis:
+    - user-auth-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: notification-service
+  description: Multi-channel notification delivery via SMS, email and push
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/notification-service
+    backstage.io/kubernetes-id: notification-service
+  tags: [nodejs, rabbitmq, mongodb, platform, notifications]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/platform-devops-team
+  system: platform-system
+  dependsOn:
+    - resource:default/rabbitmq-cluster
+    - resource:default/mongodb
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: reporting-service
+  description: Business intelligence and reporting for betting and casino operations
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: dir:../techdocs/reporting-service
+    backstage.io/kubernetes-id: reporting-service
+  tags: [python, mysql, mongodb, data, reporting]
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/data-analytics-team
+  system: platform-system
+  dependsOn:
+    - resource:default/mysql-db
+    - resource:default/mongodb
+
+# ─── RESOURCES ────────────────────────────────────────────────────────────────
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: kafka-cluster
+  description: Apache Kafka event streaming cluster for real-time data pipelines
+  tags: [kafka, messaging, streaming]
+spec:
+  type: messaging
+  owner: group:default/platform-devops-team
+  system: platform-system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: rabbitmq-cluster
+  description: RabbitMQ message broker for async service communication
+  tags: [rabbitmq, messaging]
+spec:
+  type: messaging
+  owner: group:default/platform-devops-team
+  system: platform-system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: mysql-db
+  description: MySQL relational database cluster
+  tags: [mysql, database]
+spec:
+  type: database
+  owner: group:default/platform-devops-team
+  system: platform-system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: mongodb
+  description: MongoDB NoSQL database cluster
+  tags: [mongodb, database]
+spec:
+  type: database
+  owner: group:default/platform-devops-team
+  system: platform-system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: hazelcast-cluster
+  description: Hazelcast in-memory data grid for caching and real-time computation
+  tags: [hazelcast, cache, in-memory]
+spec:
+  type: cache
+  owner: group:default/platform-devops-team
+  system: platform-system
