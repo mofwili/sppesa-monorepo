@@ -5,7 +5,7 @@ metadata:
   description: SportPesa master catalog location
 spec:
   targets:
-    - ./org.yaml
-    - ./systems.yaml
-    - ./services.yaml
-    - ./apis.yaml
+    - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/catalog/org.yaml
+    - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/catalog/systems.yaml
+    - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/catalog/services.yaml
+    - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/catalog/apis.yaml
