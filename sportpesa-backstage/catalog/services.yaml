@@ -6,7 +6,7 @@ metadata:
   description: Real-time odds calculation and market management engine
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/odds-engine
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/odds-engine
     backstage.io/kubernetes-id: odds-engine
   tags: [java, kafka, hazelcast, betting, core]
   links:
@@ -36,7 +36,7 @@ metadata:
   description: Real-time risk assessment and liability management for betting markets
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/risk-management
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/odds-engine
     backstage.io/kubernetes-id: risk-management
   tags: [python, kafka, mongodb, betting, risk]
 spec:
@@ -57,7 +57,7 @@ metadata:
   description: Bonus and promotions management for betting and casino players
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/bonus-engine
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/odds-engine
     backstage.io/kubernetes-id: bonus-engine
   tags: [nodejs, mysql, rabbitmq, betting, casino]
 spec:
@@ -81,7 +81,7 @@ metadata:
   description: Casino games platform managing game lifecycle and player sessions
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/casino-games
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/casino-games
     backstage.io/kubernetes-id: casino-games
   tags: [java, mongodb, hazelcast, casino, core]
   links:
@@ -109,7 +109,7 @@ metadata:
   description: Progressive jackpot management with real-time pooling across casino games
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/jackpot-engine
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/jackpot-engine
     backstage.io/kubernetes-id: jackpot-engine
   tags: [java, hazelcast, kafka, casino, jackpot]
 spec:
@@ -132,7 +132,7 @@ metadata:
   description: Player wallet management including deposits, withdrawals and balances
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/wallet-service
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/wallet-service
     backstage.io/kubernetes-id: wallet-service
   tags: [java, mysql, rabbitmq, payments, core]
   links:
@@ -159,7 +159,7 @@ metadata:
   description: Payment processing gateway integrating M-Pesa, cards and mobile money
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/payment-gateway
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/payment-gateway
     backstage.io/kubernetes-id: payment-gateway
   tags: [nodejs, mysql, payments, mpesa, gateway]
   links:
@@ -184,7 +184,7 @@ metadata:
   description: Know Your Customer identity verification and compliance service
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/kyc-service
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/kyc-service
     backstage.io/kubernetes-id: kyc-service
   tags: [python, mongodb, payments, compliance, kyc]
 spec:
@@ -206,7 +206,7 @@ metadata:
   description: Authentication and authorisation service using JWT and OAuth2
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/user-auth
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/odds-engine
     backstage.io/kubernetes-id: user-auth
   tags: [nodejs, mysql, platform, auth, jwt]
 spec:
@@ -226,7 +226,7 @@ metadata:
   description: Multi-channel notification delivery via SMS, email and push
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/notification-service
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/odds-engine
     backstage.io/kubernetes-id: notification-service
   tags: [nodejs, rabbitmq, mongodb, platform, notifications]
 spec:
@@ -245,7 +245,7 @@ metadata:
   description: Business intelligence and reporting for betting and casino operations
   annotations:
     github.com/project-slug: mofwili/sppesa-monorepo
-    backstage.io/techdocs-ref: dir:../techdocs/reporting-service
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/sportpesa-backstage/techdocs/odds-engine
     backstage.io/kubernetes-id: reporting-service
   tags: [python, mysql, mongodb, data, reporting]
 spec:
