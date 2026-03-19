@@ -10,3 +10,4 @@ spec:
     - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/catalog/services.yaml
     - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/catalog/apis.yaml
     - https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/scaffolder-templates/go-service-template/template.yaml
+    - https://github.com/mofwili/sppesa-monorepo/edit/main/sportpesa-backstage/catalog/all.yaml
