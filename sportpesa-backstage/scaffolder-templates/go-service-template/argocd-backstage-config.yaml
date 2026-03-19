@@ -1,0 +1,18 @@
+# Add this to your Backstage app-config.yaml to enable ArgoCD integration
+# This shows ArgoCD sync status directly on each service page in Backstage
+
+argocd:
+  username: admin
+  password: ${ARGOCD_PASSWORD}
+  appLocatorMethods:
+    - type: config
+      instances:
+        - name: sportpesa-argocd
+          url: http://10.4.2.56:${ARGOCD_NODEPORT}
+          token: ${ARGOCD_TOKEN}
+
+# Also add to catalog.locations:
+# - type: url
+#   target: https://raw.githubusercontent.com/mofwili/sppesa-monorepo/main/sportpesa-backstage/scaffolder-templates/go-service-template/template.yaml
+#   rules:
+#     - allow: [Template]
