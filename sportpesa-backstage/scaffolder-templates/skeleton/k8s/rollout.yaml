@@ -1,0 +1,121 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: ${{ values.name }}
+  namespace: ${{ values.namespace }}
+  labels:
+    app: ${{ values.name }}
+    backstage.io/kubernetes-id: ${{ values.name }}
+    domain: ${{ values.domain }}
+spec:
+  replicas: ${{ values.replicas }}
+  selector:
+    matchLabels:
+      app: ${{ values.name }}
+  template:
+    metadata:
+      labels:
+        app: ${{ values.name }}
+        backstage.io/kubernetes-id: ${{ values.name }}
+        domain: ${{ values.domain }}
+    spec:
+      containers:
+        - name: ${{ values.name }}
+          image: ghcr.io/mofwili/sppesa-monorepo/${{ values.name }}:latest
+          ports:
+            - containerPort: ${{ values.port }}
+              name: http
+          env:
+            - name: PORT
+              value: "${{ values.port }}"
+            - name: APP_ENV
+              value: production
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: ${{ values.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: ${{ values.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+  strategy:
+    canary:
+      canaryService: ${{ values.name }}-canary
+      stableService: ${{ values.name }}-stable
+      trafficRouting:
+        nginx:
+          stableIngress: ${{ values.name }}-ingress
+      steps:
+        - setWeight: ${{ values.canaryWeight }}
+        - pause:
+            duration: 2m
+        - analysis:
+            templates:
+              - templateName: ${{ values.name }}-success-rate
+        - setWeight: 50
+        - pause:
+            duration: 2m
+        - setWeight: 100
+      autoPromotionEnabled: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${{ values.name }}-stable
+  namespace: ${{ values.namespace }}
+  labels:
+    app: ${{ values.name }}
+spec:
+  selector:
+    app: ${{ values.name }}
+  ports:
+    - port: 80
+      targetPort: ${{ values.port }}
+      name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${{ values.name }}-canary
+  namespace: ${{ values.namespace }}
+  labels:
+    app: ${{ values.name }}
+spec:
+  selector:
+    app: ${{ values.name }}
+  ports:
+    - port: 80
+      targetPort: ${{ values.port }}
+      name: http
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: ${{ values.name }}-success-rate
+  namespace: ${{ values.namespace }}
+spec:
+  metrics:
+    - name: success-rate
+      interval: 30s
+      successCondition: result[0] >= 0.95
+      failureLimit: 3
+      provider:
+        prometheus:
+          address: http://prometheus.monitoring.svc.cluster.local:9090
+          query: |
+            sum(rate(http_requests_total{service="${{ values.name }}",status=~"2.."}[2m]))
+            /
+            sum(rate(http_requests_total{service="${{ values.name }}"}[2m]))

@@ -1,0 +1,9 @@
+site_name: ${{ values.name }}
+nav:
+  - Overview: index.md
+  - Architecture: architecture.md
+  - API Reference: api.md
+  - Runbook: runbook.md
+  - Deployment: deployment.md
+plugins:
+  - techdocs-core

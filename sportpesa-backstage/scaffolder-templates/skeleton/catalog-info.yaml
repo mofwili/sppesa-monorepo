@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  description: ${{ values.description }}
+  annotations:
+    github.com/project-slug: mofwili/sppesa-monorepo
+    backstage.io/techdocs-ref: url:https://github.com/mofwili/sppesa-monorepo/tree/main/services/${{ values.name }}
+    backstage.io/kubernetes-id: ${{ values.name }}
+    argocd/app-name: ${{ values.name }}
+  tags: [go, golang, gin, ${{ values.domain }}]
+  links:
+    - url: http://argocd.sportpesa.com/applications/${{ values.name }}
+      title: ArgoCD application
+      icon: web
+spec:
+  type: service
+  lifecycle: ${{ values.lifecycle }}
+  owner: ${{ values.owner }}
+  system: ${{ values.domain }}-system
+  providesApis:
+    - ${{ values.name }}-api
