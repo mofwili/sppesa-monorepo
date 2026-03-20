@@ -99,7 +99,6 @@ spec:
       name: Publish to GitHub
       action: publish:github
       input:
-        allowedHosts: [github.com]
         description: ${{ parameters.description }}
         repoUrl: github.com?repo=sppesa-monorepo&owner=mofwili
         defaultBranch: main
